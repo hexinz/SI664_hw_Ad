@@ -1,0 +1,30 @@
+{% extends "base_bootstrap.html" %}
+
+{% block content %}
+  <h1>City List</h1>
+  {% if city_list %}
+  <ul>
+    {% for city in city_list %}
+      <li>
+          {{ city.nickname }} ({{ city.state }})
+          (<a href="{% url 'cities:city_update' city.id %}">Update</a> |
+          <a href="{% url 'cities:city_delete' city.id %}">Delete</a>) <br/>
+          {{ city.slogan }} ({{ city.population }} million)
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no cities in the library.</p>
+  {% endif %}
+  <p>
+    {% if state_count > 0 %}
+      <a href="{% url 'cities:city_create' %}">Add a city</a>
+    {% else %}
+      Please add a state before you add a city.
+    {% endif %}
+  </p>
+  <p>
+  <a href="{% url 'cities:state_list' %}">View states</a> ({{ state_count }}) |
+    <a href="{% url 'cities:state_create' %}">Add a state</a>
+  </p>
+{% endblock %}
